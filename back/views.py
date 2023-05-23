@@ -28,7 +28,9 @@ def git_push(request):
     subprocess.run(['git', '-C', root_directory, 'commit', '-m', 'Automatic commit'])
     print("2\n")
     # Push the changes to the remote repository
-    last = subprocess.run(['git', '-C', root_directory, 'push'])
+    subprocess.run(['git', '-C', root_directory, 'config', 'user.name', "aberguecio"])
+    subprocess.run(['git', '-C', root_directory, 'config', 'user.password', github_token])
+    subprocess.run(['git', '-C', root_directory, 'push'])
     print("3\n")
     # Redirect to a success page or return a response
     return "last"
