@@ -15,9 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from .views import git_push
 
 urlpatterns = [
-    path('', include('back.urls')),
     path('admin/', admin.site.urls),
+    path('git-push/', git_push, name='git_push')
 ]
