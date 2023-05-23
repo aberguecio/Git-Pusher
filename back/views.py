@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 github_token = os.environ.get('GITHUB_TOKEN')
+""" print(github_token) """
 
 headers = {
     'Authorization': f'token {github_token}',
