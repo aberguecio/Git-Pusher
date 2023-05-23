@@ -34,7 +34,7 @@ def git_push(request):
     print("__________________START___________________\n")
     private_key_path = os.environ.get('SSH_PRIVATE_KEY')
     remote_repository = "origin"
-    branch = "master"
+    branch = "main"
 
     # Add and commit changes
     subprocess.run(["git", "add", "."])
