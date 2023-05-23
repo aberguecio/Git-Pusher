@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 github_token = os.environ.get('GITHUB_TOKEN')
-""" print(github_token) """
+username = "aberguecio"
 
 headers = {
     'Authorization': f'token {github_token}',
@@ -37,8 +37,11 @@ def git_push(request):
     print("3\n")
     subprocess.run(['git', '-C', root_directory, 'config', 'user.password', github_token])
     print("4\n")
-    subprocess.run(['git', '-C', root_directory, 'push'])
+    remote_url = f"git@github.com:{username}/Git-Pusher.git"
+    subprocess.run(['git', '-C', root_directory, 'remote', 'set-url', 'origin', remote_url])
     print("5\n")
+    subprocess.run(['git', '-C', root_directory, 'push'])
+    print("6\n")
     # Redirect to a success page or return a response
     return "last"
 
