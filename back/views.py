@@ -29,9 +29,11 @@ def git_push(request):
     print("2\n")
     # Push the changes to the remote repository
     subprocess.run(['git', '-C', root_directory, 'config', 'user.name', "aberguecio"])
-    subprocess.run(['git', '-C', root_directory, 'config', 'user.password', github_token])
-    subprocess.run(['git', '-C', root_directory, 'push'])
     print("3\n")
+    subprocess.run(['git', '-C', root_directory, 'config', 'user.password', github_token])
+    print("4\n")
+    subprocess.run(['git', '-C', root_directory, 'push'])
+    print("5\n")
     # Redirect to a success page or return a response
     return "last"
 
