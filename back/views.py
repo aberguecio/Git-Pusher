@@ -5,21 +5,32 @@ import subprocess
 import os
 from dotenv import load_dotenv
 
-# Dotenv
 load_dotenv()
-
 github_token = os.environ.get('GITHUB_TOKEN')
 username = "aberguecio"
 
-headers = {
-    'Authorization': f'token {github_token}',
-}
-response = requests.get('https://api.github.com/path/to/api', headers=headers)
+def add_github_to_known_hosts():
+    known_hosts_file = '/path/to/your/known_hosts/file'  # Specify the path to your known_hosts file
+    
+    # Execute the ssh-keyscan command
+    process = subprocess.run(['ssh-keyscan', '-t', 'rsa', 'github.com'], capture_output=True, text=True)
+    
+    if process.returncode == 0:
+        # Append the scanned host key to the known_hosts file
+        with open(known_hosts_file, 'a') as f:
+            f.write(process.stdout)
+        print("GitHub has been added to known_hosts.")
+    else:
+        print("Failed to scan GitHub host key.")
+
 
 def git_push(request):
     # Change to the root directory of your Django project
     root_directory = os.getcwd()
     git_directory = os.path.join(root_directory, '.git')
+    headers = {'Authorization': f'token {github_token}'}
+    #response = requests.get('https://api.github.com/path/to/api', headers=headers)
+
     if os.path.isdir(git_directory):
         print(f".git directory exists.{git_directory}")
     else:
@@ -38,10 +49,12 @@ def git_push(request):
     subprocess.run(['git', '-C', root_directory, 'config', 'user.password', github_token])
     print("4\n")
     remote_url = f"git@github.com:{username}/Git-Pusher.git"
-    subprocess.run(['git', '-C', root_directory, 'remote', 'set-url', 'origin', remote_url])
+    #add_github_to_known_hosts()
     print("5\n")
-    subprocess.run(['git', '-C', root_directory, 'push'])
+    subprocess.run(['git', '-C', root_directory, 'remote', 'set-url', 'origin', remote_url])
     print("6\n")
+    subprocess.run(['git', '-C', root_directory, 'push'])
+    print("7\n")
     # Redirect to a success page or return a response
     return "last"
 
