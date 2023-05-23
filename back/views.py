@@ -41,7 +41,7 @@ def git_push(request):
     subprocess.run(["git", "commit", "-m", "Automatic commit"])
     print("1\n")
     # Push changes to the remote repository
-    subprocess.run(["git", "push", remote_repository, branch], env={"GIT_SSH_COMMAND": f"ssh -i {private_key_path}"})
+    subprocess.run(["git", "push", remote_repository, branch], env={"GIT_SSH_COMMAND": f"ssh -i {os.getcwd()}/id_ed25519.pub"})
 
 """ def git_push(request):
     # Change to the root directory of your Django project
