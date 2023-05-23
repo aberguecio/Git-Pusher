@@ -30,12 +30,21 @@ def set_token():
     remote_url = f"git@github.com:{username}/Git-Pusher.git"
     subprocess.run(['git', '-C', root_directory, 'remote', 'set-url', 'origin', remote_url])
 
-    headers = {'Authorization': f'token {github_token}'}
-    response = requests.get('https://api.github.com/path/to/api', headers=headers)
-
-
 def git_push(request):
+    print("__________________START___________________\n")
+    private_key_path = os.environ.get('SSH_PRIVATE_KEY')
+    remote_repository = "origin"
+    branch = "master"
 
+    # Add and commit changes
+    subprocess.run(["git", "add", "."])
+    subprocess.run(["git", "commit", "-m", "Automatic commit"])
+    print("1\n")
+    # Push changes to the remote repository
+    subprocess.run(["git", "push", remote_repository, branch], env={"GIT_SSH_COMMAND": f"ssh -i {private_key_path}"})
+
+""" def git_push(request):
+    # Change to the root directory of your Django project
     root_directory = os.getcwd()
     
     # Add all files to the Git repository
@@ -47,7 +56,7 @@ def git_push(request):
     # Push the changes to the remote repository
     subprocess.run(['git', '-C', root_directory, 'push'])
     print("3\n")
-    return "last"
+    return "last" """
 
 
 """ import requests
