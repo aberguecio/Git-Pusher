@@ -1,7 +1,15 @@
 from django.shortcuts import render
 
+import requests
 import subprocess
 import os
+
+github_token = os.environ.get('GITHUB_TOKEN')
+
+headers = {
+    'Authorization': f'token {github_token}',
+}
+response = requests.get('https://api.github.com/path/to/api', headers=headers)
 
 def git_push(request):
     # Change to the root directory of your Django project
