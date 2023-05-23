@@ -3,6 +3,10 @@ from django.shortcuts import render
 import requests
 import subprocess
 import os
+from dotenv import load_dotenv
+
+# Dotenv
+load_dotenv()
 
 github_token = os.environ.get('GITHUB_TOKEN')
 
